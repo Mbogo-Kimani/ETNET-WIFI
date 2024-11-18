@@ -25,7 +25,7 @@
 
   .message{
     background: whitesmoke;
-    display: flex;
+  display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: -80px;

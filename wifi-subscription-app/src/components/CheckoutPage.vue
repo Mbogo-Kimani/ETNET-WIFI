@@ -3,7 +3,7 @@
     <div class="checkout-page">
       <!-- Use the passed duration and price from the router's state -->
       <p><img src="@/assets/mpesa-icon.png" alt="Error" class="mpesa-icon"><span class="span1">Ksh {{ price }}</span> for {{ duration }}</p>
-      <input type="tel" placeholder="+254 M~pesa number" v-model="phoneNumber" />
+      <input type="tel" placeholder="+254 M~pesa number" v-model="phoneNumber" required/>
       <button @click="payNow">Pay Now</button>
     </div>
   </div>
@@ -58,7 +58,7 @@
     background-color: #202b61;
     text-align: center;
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     margin: auto;
     padding: 15px;
     border-radius: 12px;
@@ -74,7 +74,7 @@
     border-color:  #ffff;
     background-color: transparent;
     width: 100%;
-    max-width: 60%;
+    max-width: 80%;
     margin-bottom: 40px;
     border-radius: 16px;
     height: 35px;
