@@ -3,7 +3,7 @@ import PackageSelection from './components/PackageSelection.vue';
 import CheckoutPage from './components/CheckoutPage.vue';
 import SubscriptionSuccess from './components/SubscriptionSuccess.vue';
 import SubscriptionError from './components/SubscriptionError.vue';
-
+import LoadingPage from './components/LoadingPage.vue';
 
 const routes = [
   { path: '/', component: PackageSelection },
@@ -14,6 +14,7 @@ const routes = [
   },
   { path: '/success', component: SubscriptionSuccess },
   { path: '/error', component: SubscriptionError },
+  { path: '/loading', component: LoadingPage},
 ];
 
 // Create the router instance and specify the mode

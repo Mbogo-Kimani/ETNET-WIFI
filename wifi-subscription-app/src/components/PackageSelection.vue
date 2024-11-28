@@ -1,11 +1,11 @@
 <template>
   <div class="package-selection">
     <div v-for="(pkg, index) in packages" :key="index" class="package">
-      <!-- Display the duration (formatted) and price of the package -->
       <p class="time">{{ formatDuration(pkg.duration) }}</p>
       <p class="ksh"><span>Ksh</span> {{ pkg.cost }}</p>
-      <!-- Pass only duration and price to the checkout page -->
-      <button @click="goToCheckout(pkg.duration, pkg.cost)">Get Access</button>
+      
+      <!-- Button to navigate to checkout -->
+      <button @click="goToCheckout(pkg)">Get Access</button>
     </div>
   </div>
 </template>
@@ -14,47 +14,48 @@
 export default {
   data() {
     return {
-      packages: [], // Empty initially, will be populated by API
+      packages: [], // Array to hold the fetched packages
     };
   },
   mounted() {
-    this.fetchPackages(); // Fetch packages when component is mounted
+    this.fetchPackages(); // Fetch packages when the component is mounted
   },
   methods: {
     // Fetch packages from the backend API
     fetchPackages() {
-      fetch("https://task.etnet.co.ke/api/street_packages")
+      fetch("http://localhost:3000/api/street_packages")
         .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to fetch packages");
-          }
+          if (!response.ok) throw new Error("Failed to fetch packages");
           return response.json();
         })
         .then((data) => {
-          this.packages = data; // Populate packages with the response data
+          console.log("Data received:", data);
+          this.packages = data.packages || []; // Store packages in the data
         })
-        .catch((error) => {
-          console.error("Error fetching packages:", error);
-        });
+        .catch((error) => console.error("Error fetching packages:", error));
     },
-    // Format duration from seconds to a readable format
+    // Format the duration from seconds to days or hours
     formatDuration(seconds) {
       const days = Math.floor(seconds / 86400);
       const hours = Math.floor((seconds % 86400) / 3600);
-      const minutes = Math.floor((seconds % 3600) / 60);
-
-      if (days > 0) return `${days} Days`;
-      if (hours > 0) return `${hours} Hours`;
-      if (minutes > 0) return `${minutes} Minutes`;
+      if (days > 0) return `${days} Day${days > 1 ? 's' : ''}`;
+      if (hours > 0) return `${hours} Hour${hours > 1 ? 's' : ''}`;
       return `${seconds} Seconds`;
     },
-    // Navigate to the checkout page with package details
-    goToCheckout(duration, price) {
-      this.$router.push({ name: "checkout", state: { duration, price } });
+    // Navigate to checkout and pass the selected package data
+    goToCheckout(pkg) {
+      console.log("Navigating to checkout with:", pkg);
+
+      // Save the package data to sessionStorage for secure access
+      sessionStorage.setItem("checkoutData", JSON.stringify(pkg));
+
+      // Navigate to the checkout route
+      this.$router.push({ name: "checkout" });
     },
   },
 };
 </script>
+
 
 <style scoped>
 .package-selection {
@@ -98,6 +99,13 @@ export default {
   margin-bottom: -0.1px;
 }
 
+.desc{
+  font-size: 20px;
+  font-weight: 700;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+}
+
 span {
   font-size: 20px;
   font-weight: 900;
@@ -124,3 +132,4 @@ button:hover {
   cursor: pointer;
 }
 </style>
+

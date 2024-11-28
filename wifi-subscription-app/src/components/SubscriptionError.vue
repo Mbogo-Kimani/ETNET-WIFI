@@ -15,7 +15,7 @@
   export default {
     methods: {
       retry() {
-        this.$router.push('/checkout');
+        this.$router.push('/');
       }
     }
   };
@@ -28,7 +28,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: -80px;
+    margin-top: -50px;
     padding-top: 30px;
     padding-bottom: 60px;
     border-radius: 24px;
@@ -44,8 +44,9 @@
     text-align: center;
     width: 100%;
     max-width: 400px;
-    margin: 50px;
+    margin: 30px;
     margin: auto;
+    padding-top: 50px;
   }
   .error-icon {
     width: 45px;

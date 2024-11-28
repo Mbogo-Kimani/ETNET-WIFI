@@ -28,9 +28,9 @@
   display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: -80px;
+    margin-top: -50px;
     padding-top: 30px;
-    padding-bottom: 60px;
+    padding-bottom: 20px;
     border-radius: 24px;
     width: auto;
     height: 100%;
@@ -44,8 +44,9 @@
     text-align: center;
     width: 100%;
     max-width: 400px;
-    margin: 50px;
+    margin: 40px;
     margin: auto;
+    padding-top: 50px
   }
   .success-icon {
     width: 45px;
