@@ -2,92 +2,87 @@
   <div class="message">
     <div class="error-page">
       <div class="icon-ring">
-      <img src="@/assets/error-icon.png" alt="Error" class="error-icon">
-    </div>
+        <img src="@/assets/failed.png" alt="Failed" class="failed-icon" />
+      </div>
       <p class="failed">Failed</p>
       <p class="out">Process timed out</p>
+      <p class="status">Your subscription has failed</p>
       <button @click="retry">Try again</button>
     </div>
   </div>
-  </template>
-  
-  <script>
-  export default {
-    methods: {
-      retry() {
-        this.$router.push('/');
-      }
+</template>
+
+<script>
+export default {
+  methods: {
+    retry() {
+      this.$router.push('/');
     }
-  };
-  </script>
-  
-  <style scoped>
+  }
+};
+</script>
 
-.message{
-    background: whitesmoke;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: -50px;
-    padding-top: 30px;
-    padding-bottom: 60px;
-    border-radius: 24px;
-    width: auto;
-    height: 100%;
-  }
+<style scoped>
+.message {
+  background: #FFFFFFE6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 30px 20px;
+  border-radius: 24px;
+}
 
-  .error-page {
-    border-radius: 12px;
-    color: #fff;
-    padding: 15px;
-    background-color: #202b61;
-    text-align: center;
-    width: 100%;
-    max-width: 400px;
-    margin: 30px;
-    margin: auto;
-    padding-top: 50px;
-  }
-  .error-icon {
-    width: 45px;
-  }
-  button {
-    background: #007bff;
-    color: #fff;
-    padding: 15px;
-    width: 100%;
-    max-width: 70%;
-    margin-bottom: 30px;
-    border-radius: 16px;
-    border-style: none;
-    background-color: #f99526;
-    transition: 0.3s ease;
-  }
-
-  button:hover{
-    background-color: #eb7e03;
-    cursor: pointer
-  }
-
-  .failed{
-    font-weight: 700;
-  font-size: 25px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
-  }
-
-  .out{
-    font-weight: 500;
-  font-size: 18px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+.error-page {
+  border-radius: 12px;
+  background-color:#FFFFFFE6;
+  text-align: center;
+  padding: 30px;
+  margin-top: -100px;
+  max-width: 400px;
+  width: 100%;
 }
 
 .icon-ring {
-  display: inline-block; /* Ensure it fits content size */
-  padding: 10px; /* Control the size of the ring */
-  border: 2px solid #704fde; /* Set ring color and thickness */
-  border-radius: 100%; /* Makes the border circular */
-  text-align: center; /* Center content inside the circle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
 }
-  
-  </style>
-  
+
+.failed-icon {
+  width: 150px; /* Adjust icon size */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.failed {
+  font-weight: 700;
+  font-size: 25px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.out,
+.status {
+  font-weight: 500;
+  font-size: 18px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 10px 0;
+}
+
+button {
+  background: #ffc992;
+  color: #fff;
+  padding: 15px;
+  width: 100%;
+  max-width: 70%;
+  margin-top: 20px;
+  border-radius: 16px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #eb7e03;
+  cursor: pointer;
+}
+</style>

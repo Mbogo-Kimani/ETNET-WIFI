@@ -1,9 +1,12 @@
 <template>
   <div class="package-selection">
     <div v-for="(pkg, index) in packages" :key="index" class="package">
-      <p class="time">{{ formatDuration(pkg.duration) }}</p>
+      <!-- Display the package name at the top -->
+      <p class="package-name">{{ pkg.name }}</p>
       <p class="ksh"><span>Ksh</span> {{ pkg.cost }}</p>
-      
+      <p class="time">{{ formatDuration(pkg.duration) }}</p>
+      <p class="access">Unlimited Access</p>
+      <p class="devices">{{ pkg.description }}</p>
       <!-- Button to navigate to checkout -->
       <button @click="goToCheckout(pkg)">Get Access</button>
     </div>
@@ -56,7 +59,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .package-selection {
   background: whitesmoke;
@@ -72,56 +74,46 @@ export default {
 
 .package {
   border-radius: 12px;
-  background: #fff;
+  background:#FFFFFF;
   padding: 1px;
   margin: 10px;
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
+  height: 300px;
   text-align: center;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.time {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 30px;
+.package-name {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 25px;
   font-weight: bold;
   color: #202b61;
-  margin-bottom: -45px;
+  margin-bottom: 10px;
+}
+
+.time, .access, .devices {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 18px;
+  margin: 5px 0;
 }
 
 .ksh {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #704fde;
-  font-size: 50px;
+  font-size: 30px;
   font-weight: 900;
-  margin-bottom: -0.1px;
-}
-
-.desc{
-  font-size: 20px;
-  font-weight: 700;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-  Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-}
-
-span {
-  font-size: 20px;
-  font-weight: 900;
+  margin-bottom: 5px;
 }
 
 button {
-  background: #f99526;
-  color: #fff;
+  background: #FFE0C1;
+  color: #202b61;
   font-weight: 900;
-  font-size: 20px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
   padding: 8px;
   border-radius: 12px;
   width: 70%;
-  margin-bottom: 15px;
   outline-style: none;
   border-style: none;
   transition: 0.3s ease;
@@ -132,4 +124,3 @@ button:hover {
   cursor: pointer;
 }
 </style>
-

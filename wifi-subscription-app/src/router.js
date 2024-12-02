@@ -6,7 +6,8 @@ import SubscriptionError from './components/SubscriptionError.vue';
 import LoadingPage from './components/LoadingPage.vue';
 
 const routes = [
-  { path: '/', component: PackageSelection },
+  { path: '/', component: PackageSelection }, // Set PackageSelection as the root route
+  { path: '/packages', component: PackageSelection }, // Keep the path for PackageSelection
   {
     path: '/checkout',
     name: 'checkout',  // Keep this name for navigation purposes
@@ -14,15 +15,13 @@ const routes = [
   },
   { path: '/success', component: SubscriptionSuccess },
   { path: '/error', component: SubscriptionError },
-  { path: '/loading', component: LoadingPage},
+  { path: '/loading', component: LoadingPage },
 ];
 
 // Create the router instance and specify the mode
 const router = createRouter({
-  history: createWebHistory(), // use createWebHistory if your app uses history mode
+  history: createWebHistory(), // Use createWebHistory for history mode
   routes,
 });
-
-  
 
 export default router;

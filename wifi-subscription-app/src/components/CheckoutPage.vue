@@ -92,30 +92,30 @@ export default {
 }
 
 .checkout-page {
-  background-color: #202b61;
+  background-color:#FFFFFFE6;
   text-align: center;
-  width: 100%;
+  width: 500px;
   max-width: 600px;
   margin: auto;
   padding: 20px;
   border-radius: 12px;
-  height: auto;
+  height: 400px;
   margin: 50px;
 }
 
 input {
   padding-left: 10px;
-  padding: 5px;
-  color: #fff;
+  padding: 15px;
+  color: #213061;
   border-style: double;
-  border-color: #ffff;
+  border-color: #213061;
   background-color: transparent;
   width: 100%;
   max-width: 80%;
   margin-bottom: 23px;
   border-radius: 16px;
   height: 35px;
-  margin-top: 8px
+  margin-top: 50px
 }
 
 .mpesa-icon {
@@ -129,12 +129,12 @@ p {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   margin-bottom: 10px;
-  color: white;
+  color:#213061;
   margin-top: 30px;
 }
 
 .span1 {
-  color: #00ff00;
+  color: #213061;
 }
 
 button {
@@ -143,6 +143,7 @@ button {
   padding: 15px;
   width: 100%;
   max-width: 70%;
+  margin-top:30px;
   margin-bottom: 30px;
   border-radius: 16px;
   border-style: none;
@@ -156,7 +157,7 @@ button:hover {
 }
 
 ::placeholder {
-  color: #fff;
+  color:#213061;
 }
 
 #validation-message {
