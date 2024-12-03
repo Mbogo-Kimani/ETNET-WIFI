@@ -42,38 +42,50 @@
     <!-- Cursor Elements -->
     <div class="cursor"></div>
     <div class="cursor-trail"></div>
+
+    <!-- Background Effects -->
+    <div class="background-effects"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App',
+  name: "App",
   mounted() {
-    const cursor = document.querySelector('.cursor');
-    const cursorTrail = document.querySelector('.cursor-trail');
+    const cursor = document.querySelector(".cursor");
+    const cursorTrail = document.querySelector(".cursor-trail");
+    const background = document.querySelector(".background-effects");
 
-    if (!cursor || !cursorTrail) return;
+    if (!cursor || !cursorTrail || !background) return;
 
-    document.addEventListener('mousemove', (event) => {
+    // Cursor movement and trail effect
+    document.addEventListener("mousemove", (event) => {
       const { clientX, clientY } = event;
 
-      // Update cursor position
       cursor.style.transform = `translate(${clientX}px, ${clientY}px)`;
       cursorTrail.style.transform = `translate(${clientX}px, ${clientY}px)`;
     });
 
-    document.addEventListener('mousedown', () => {
-      cursor.classList.add('click');
+    document.addEventListener("mousedown", () => {
+      cursor.classList.add("click");
     });
 
-    document.addEventListener('mouseup', () => {
-      cursor.classList.remove('click');
+    document.addEventListener("mouseup", () => {
+      cursor.classList.remove("click");
     });
+
+    // Dynamic pulsating background effect
+    let wavePosition = 0;
+    setInterval(() => {
+      wavePosition += 0.5;
+      background.style.backgroundPosition = `${wavePosition}px ${wavePosition}px`;
+    }, 30);
   },
 };
 </script>
 
 <style scoped>
+/* Header Styles */
 .header {
   position: relative;
   display: flex;
@@ -97,12 +109,11 @@ export default {
 .logo {
   width: 200px;
   margin-right: 10px;
-  top: 0%;
 }
 
+/* Footer Styles */
 .footer {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: #fff;
   color: #000;
   text-align: center;
   padding: 40px 20px;
@@ -194,61 +205,55 @@ export default {
   margin-bottom: -50px;
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .contact-section {
-    text-align: center;
-    margin-left: 0;
-  }
-
-  .contact-section h3 {
-    margin-left: 0;
-    margin-top: 0;
-  }
-
-  .social-icons {
-    justify-content: center;
-    margin-left: 100px;
-    
-  }
-
-  .branding-section {
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-    margin-right: 0;
-  }
-
-  .branding-section .logo1 {
-    margin-right: 0;
-    width: 80%;
-  }
-
-  .branding-text h3 {
-    font-size: 2rem;
-  }
+/* Cursor Effects */
+.cursor {
+  width: 15px;
+  height: 15px;
+  background-color: #FF901D;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease-in-out;
 }
 
-@media (min-width: 1200px) {
-  .footer-content {
-    gap: 80px;
-  }
+.cursor-trail {
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(circle, rgba(255,144,29,0.3) 0%, rgba(255,144,29,0) 70%);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.15s ease-in-out;
+}
 
-  .contact-section h3 {
-    font-size: 50px;
-  }
+.cursor.click {
+  transform: scale(1.5);
+}
 
-  .branding-section .logo1 {
-    width: 40%;
-  }
+/* Background Effects */
+.background-effects {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #213061, #ffcf9d, #ffe0c1, #ccc);
+  background-size: 400% 400%;
+  z-index: -1;
+  animation: pulsate 6s ease infinite;
+}
 
-  .branding-text h3 {
-    font-size: 3.5rem;
+@keyframes pulsate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 </style>
