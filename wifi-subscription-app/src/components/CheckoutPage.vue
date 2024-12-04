@@ -95,13 +95,15 @@ export default {
 .checkout-page {
   background-color:#FFFFFF80;
   text-align: center;
-  width: 500px;
-  max-width: 600px;
-  margin: auto;
+  width: 100%;
+  max-width: 500%;
+ margin: auto 0;
   padding: 20px;
-  border-radius: 30px;
-  height: 400px;
+  border-radius: 12px;
+  height: 300px;
   margin: 50px;
+  margin-bottom: 40px;
+  margin-top: 100px;
 }
 
 input {
