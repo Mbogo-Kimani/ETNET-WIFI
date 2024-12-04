@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <header class="header">
-    
+     <div class="header-bg"></div> 
       <img src="@/assets/logo.png" alt="Logo" class="logo">
     </header>
 
@@ -58,17 +58,9 @@ export default {
   mounted() {
     const cursor = document.querySelector(".cursor");
     const cursorTrail = document.querySelector(".cursor-trail");
-<<<<<<< HEAD
-    const background = document.querySelector(".background-effects");
-=======
->>>>>>> 3135106 (third commit)
 
     if (!cursor || !cursorTrail || !background) return;
 
-<<<<<<< HEAD
-    // Cursor movement and trail effect
-=======
->>>>>>> 3135106 (third commit)
     document.addEventListener("mousemove", (event) => {
       const { clientX, clientY } = event;
 
@@ -106,22 +98,13 @@ export default {
 }
 
 .header-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  
-  background-color: #213061;
-  z-index: 1;
+  background: #213061; /* This is likely the missing part */
 }
+
 
 .logo {
   width: 200px;
-<<<<<<< HEAD
-  margin-right: 10px;
-=======
   z-index: 2;
->>>>>>> 3135106 (third commit)
 }
 
 /* Footer Styles */
@@ -219,18 +202,6 @@ export default {
   font-weight: bold;
 }
 
-<<<<<<< HEAD
-/* Cursor Effects */
-.cursor {
-  width: 15px;
-  height: 15px;
-  background-color: #FF901D;
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.1s ease-in-out;
-=======
 /* Responsive Styles */
 @media (max-width: 768px) {
   .footer-content {
@@ -267,7 +238,6 @@ export default {
   .footer-bottom {
     font-size: 0.8rem;
   }
->>>>>>> 3135106 (third commit)
 }
 
 .cursor-trail {
@@ -281,34 +251,6 @@ export default {
   transition: transform 0.15s ease-in-out;
 }
 
-<<<<<<< HEAD
-.cursor.click {
-  transform: scale(1.5);
-}
-
-/* Background Effects */
-.background-effects {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, #213061, #ffcf9d, #ffe0c1, #ccc);
-  background-size: 400% 400%;
-  z-index: -1;
-  animation: pulsate 6s ease infinite;
-}
-
-@keyframes pulsate {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-=======
   .contact-section h3 {
     font-size: 2rem;
   }
@@ -319,8 +261,7 @@ export default {
 
   .branding-text h3 {
     font-size: 2rem;
->>>>>>> 3135106 (third commit)
   }
-}
+
 
 </style>
