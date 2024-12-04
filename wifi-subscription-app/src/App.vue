@@ -58,9 +58,11 @@ export default {
   mounted() {
     const cursor = document.querySelector(".cursor");
     const cursorTrail = document.querySelector(".cursor-trail");
+    const background = document.querySelector(".background-effects"); // Define the background variable
 
     if (!cursor || !cursorTrail || !background) return;
 
+    // Cursor movement
     document.addEventListener("mousemove", (event) => {
       const { clientX, clientY } = event;
 
@@ -82,7 +84,8 @@ export default {
       wavePosition += 0.5;
       background.style.backgroundPosition = `${wavePosition}px ${wavePosition}px`;
     }, 30);
-  },
+}
+
 };
 </script>
 
@@ -263,5 +266,28 @@ export default {
     font-size: 2rem;
   }
 
+ /* Background Effects */
+.background-effects {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #213061, #ffcf9d, #ffe0c1, #ccc);
+  background-size: 400% 400%;
+  z-index: -1;
+  animation: pulsate 6s ease infinite;
+}
 
+@keyframes pulsate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 </style>
