@@ -1,48 +1,63 @@
 <template>
   <div class="message">
-    <div class="success-page">
+    <div :class="['success-page', animationClass]">
       <div class="icon-ring">
         <img src="@/assets/success.png" alt="Success" class="success-icon" />
       </div>
       <p class="success">Success</p>
       <p class="mess">Your subscription was successful</p>
-      <button @click="goHome">OK</button>
+      <button @click="goToSubscriptionPage">OK</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      animationClass: "animated rollIn", // Initial animation class
+    };
+  },
+  mounted() {
+    // Wait 10 seconds before transitioning to rollOut animation
+    setTimeout(() => {
+      this.animationClass = "animated rollOut"; // Change animation to rollOut
+      setTimeout(() => {
+        this.$router.push("/subscriptionpage"); // Redirect after rollOut completes
+      }, 1000); // Duration of the rollOut animation
+    }, 5000); // Delay before rollOut starts (10 seconds)
+  },
   methods: {
-    goHome() {
-      this.$router.push('/'); // Navigate to the home page
-    }
-  }
+    goToSubscriptionPage() {
+      this.$router.push("/subscriptionpage"); // Manual navigation
+    },
+  },
 };
 </script>
 
 <style scoped>
 /* Main container */
 .message {
-  background: #e8e8e8;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px;
+  flex-wrap: wrap;
+  padding: 30px 20px;
   border-radius: 24px;
-  min-height: 100vh; /* Full screen height */
+  margin-top: -50px;
 }
 
-/* Success page container */
 .success-page {
-  border-radius: 12px;
-  background-color:#FFFFFFE6;
+  border-radius: 30px;
+  background-color: #FFFFFF80;
   text-align: center;
   padding: 30px;
   margin-top: -100px;
   max-width: 400px;
   width: 100%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  animation-duration: 1s; /* Animation duration for rollIn and rollOut */
+  animation-fill-mode: both; /* Ensures animation stays applied after finishing */
 }
 
 /* Icon ring for centering and design */
@@ -51,16 +66,11 @@ export default {
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  padding: 10px;
-  border: 2px solid #704fde;
-  border-radius: 50%;
-  width: 100px; /* Adjust ring size */
-  height: 100px; /* Ensure circular shape */
 }
 
 /* Icon styling */
 .success-icon {
-  width: 60px; /* Adjust icon size */
+  width: 150px; /* Adjust icon size */
   height: auto; /* Maintain aspect ratio */
 }
 
@@ -68,9 +78,7 @@ export default {
 .success {
   font-weight: 700;
   font-size: 25px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: #ffffff;
-  margin-bottom: 10px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
 }
 
 /* Additional success message */
@@ -78,7 +86,7 @@ export default {
   font-weight: 500;
   font-size: 18px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: #d1d1d1;
+  color: #213061;
   margin-bottom: 20px;
 }
 
@@ -100,4 +108,44 @@ button {
 button:hover {
   background-color: #eb7e03;
 }
+
+/* Keyframes for rollIn animation */
+@keyframes rollIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%) rotate(-120deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+/* Keyframes for rollOut animation */
+@keyframes rollOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%) rotate(120deg);
+  }
+}
+
+/* Animation classes */
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.rollIn {
+  animation-name: rollIn;
+}
+
+.rollOut {
+  animation-name: rollOut;
+}
 </style>
+
+

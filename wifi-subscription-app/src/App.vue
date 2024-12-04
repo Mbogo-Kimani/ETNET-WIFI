@@ -48,13 +48,43 @@
     <div class="cursor-trail"></div>
 
     <!-- Background Effects -->
-    <div class="background-effects"></div>
+    <div class="background-effects">
+      <!-- Pulsating background effect -->
+      <div class="background-pulsating"></div>
+
+      <!-- Particle Effects -->
+      <div 
+        class="particle" 
+        v-for="n in 30" 
+        :key="n" 
+        :style="generateParticleStyles()"
+      ></div>
+    </div>
+
+    <!-- WhatsApp CTA Button -->
+    <a
+      href="https://wa.me/254791012345"
+      target="_blank"
+      class="whatsapp-cta"
+      aria-label="Contact us on WhatsApp"
+    >
+      <div class="cta-content">
+        <img src="./assets/whatsapp-icon.png" alt="WhatsApp Icon" class="cta-img" />
+        <span class="cta-text">How can we help you?</span>
+      </div>
+    </a>
   </div>
 </template>
 
 <script>
 export default {
   name: "App",
+  data() {
+    return {
+      // Particle styles will be generated dynamically
+      particles: [],
+    };
+  },
   mounted() {
     const cursor = document.querySelector(".cursor");
     const cursorTrail = document.querySelector(".cursor-trail");
@@ -80,8 +110,8 @@ export default {
 
     // Dynamic pulsating background effect
     let wavePosition = 0;
+    
     setInterval(() => {
-      wavePosition += 0.5;
       background.style.backgroundPosition = `${wavePosition}px ${wavePosition}px`;
     }, 30);
 }
@@ -251,7 +281,7 @@ export default {
   position: fixed;
   pointer-events: none;
   z-index: 9998;
-  transition: transform 0.15s ease-in-out;
+  animation: antenna-pulse 1.5s infinite;
 }
 
   .contact-section h3 {
@@ -273,21 +303,82 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(45deg, #213061, #ffcf9d, #ffe0c1, #ccc);
-  background-size: 400% 400%;
   z-index: -1;
-  animation: pulsate 6s ease infinite;
 }
 
-@keyframes pulsate {
-  0% {
-    background-position: 0% 50%;
+.background-pulsating {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, #ff901d, #ffe0c1, #213061, #f5ae63);
+  animation: pulsatingBackground 5s ease-in-out infinite;
+}
+
+@keyframes pulsatingBackground {
+  0%, 100% {
+    transform: scale(1);
   }
   50% {
-    background-position: 100% 50%;
+    transform: scale(1.05);
+  }
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: moveParticle 10s infinite;
+}
+
+@keyframes moveParticle {
+  0% {
+    transform: translateX(0) translateY(0);
+    opacity: 1;
   }
   100% {
-    background-position: 0% 50%;
+    transform: translateX(100vw) translateY(100vh);
+    opacity: 0;
   }
+}
+
+
+/* WhatsApp CTA Button */
+.whatsapp-cta {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25D366;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 50px;
+  padding: 10px 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whatsapp-cta:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.cta-content {
+  display: flex;
+  align-items: center;
+}
+
+.cta-img {
+  width: 24px;
+  height: 24px;
+}
+
+.cta-text {
+  font-size: 16px;
+  font-weight: bold;
 }
 </style>
