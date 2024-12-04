@@ -1,8 +1,8 @@
 <template>
   <div class="pay">
     <div class="checkout-page">
+      <img src="@/assets/mpesa.png" alt="Error" class="mpesa-icon" />
       <p>
-        <img src="@/assets/mpesa-icon.png" alt="Error" class="mpesa-icon" />
         <span class="span1">Ksh {{ price }}</span> for {{ formattedDuration }}
       </p>
       <input
@@ -68,22 +68,23 @@ export default {
         return;
       }
 
-      // Navigate to loading page (or trigger payment logic)
-      this.$router.push({ path: "/loading" });
+      // Navigate to success page after validation
+      this.$router.push({ path: "/success" });
+      this.$router.push({ path: "/success" });
     },
   },
 };
+
 </script>
 
 
 
 <style scoped>
 .pay {
-  background: whitesmoke;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: -90px;
+  margin-top: -200px;
   padding-top: 30px;
   padding-bottom: 50px;
   border-radius: 24px;
@@ -92,13 +93,13 @@ export default {
 }
 
 .checkout-page {
-  background-color:#FFFFFFE6;
+  background-color:#FFFFFF80;
   text-align: center;
   width: 500px;
   max-width: 600px;
   margin: auto;
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 30px;
   height: 400px;
   margin: 50px;
 }
@@ -119,8 +120,9 @@ input {
 }
 
 .mpesa-icon {
-  width: 30px;
-  margin-bottom: -6px;
+  margin-bottom: -70px;
+  width: 200px;
+
 }
 
 p {
