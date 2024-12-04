@@ -2,34 +2,15 @@
   <div class="container">
     <!-- Image Cards -->
     <div class="image-cards">
-      <!-- First Image Card -->
-      <div class="image-card">
-        <div class="card-text">Enjoy Seamless Live Stream</div>
-        <img
-          src="https://img.freepik.com/free-vector/it-s-movie-time-banner-template-pop-corn-basket-cola-cup-movie-sign-blue-curtain-background_575670-2199.jpg?uid=R175952397&ga=GA1.1.1078838548.1732538716"
-          alt="Live Stream Image"
-          class="card-image"
-        />
-      </div>
-
-      <!-- Second Image Card -->
-      <div class="image-card">
-        <div class="card-text">No Lag Just Wins</div>
-        <img
-          src="https://img.freepik.com/free-photo/front-view-man-playing-video-game_23-2149546688.jpg?uid=R175952397&ga=GA1.1.1078838548.1732538716&semt=ais_hybrid"
-          alt="Gaming Image"
-          class="card-image"
-        />
-      </div>
-
-      <!-- Third Image Card -->
-      <div class="image-card">
-        <div class="card-text">Reels snaps and vibes anywhere</div>
-        <img
-          src="https://img.freepik.com/free-photo/hands-holding-smartphone-social-media-concept_23-2150208238.jpg?t=st=1733224564~exp=1733228164~hmac=959b51afdab76b027136b70703f001b53a331463c9b05baa967b25b63313290c&w=360"
-          alt="Reels snaps and vibes with no lag"
-          class="card-image"
-        />
+      <div
+        v-for="(image, index) in images"
+        :key="index"
+        class="image-card"
+        :class="{ center: currentIndex === index }"
+        @mouseover="onHover(index)"
+      >
+        <div class="card-text">{{ image.text }}</div>
+        <img :src="image.src" :alt="image.alt" class="card-image" />
       </div>
     </div>
 
@@ -37,11 +18,11 @@
     <div class="info-bar">
       <div class="info-item">
         <img src="@/assets/customer.png" alt="Contact Icon" class="icon" />
-        <span>Contact customer care</span>
+        <span @click="$router.push('/contact')">Contact customer care</span>
       </div>
       <div class="info-item">
         <img src="@/assets/wifi-green.png" alt="Subscription Icon" class="icon" />
-        <span>Subscriptions</span>
+        <span @click="$router.push('/subscription')">Subscriptions</span>
       </div>
     </div>
 
@@ -50,13 +31,12 @@
 
     <!-- Package Selection -->
     <div class="package-selection">
-      <!-- Render packages dynamically -->
       <div
         v-for="(pkg, index) in packages"
         :key="index"
         :class="[
           'package-card',
-          isOrangePackage(pkg.name) ? 'orange-theme' : 'green-theme'
+          isOrangePackage(pkg.name) ? 'orange-theme' : 'green-theme',
         ]"
       >
         <h3 class="package-name">{{ pkg.name }}</h3>
@@ -77,16 +57,13 @@
           <span>USERS</span>
         </div>
       </div>
-       <!-- Second Stat Item: Hotspot Icon and Number at Top -->
-       <div class="stat-item">
+      <div class="stat-item">
         <div class="stat-top">
           <span class="stat-number">200</span>
           <img src="@/assets/hotspot.png" alt="Hotspots Icon" class="icon" />
         </div>
         <span class="name">HOTSPOTS</span>
       </div>
-
-      <!-- Third Stat Item: Town Icon and Number at Top -->
       <div class="stat-item">
         <div class="stat-top">
           <span class="stat-number">10</span>
@@ -97,6 +74,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   data() {
@@ -123,6 +101,24 @@ export default {
         "QTRLY Family x4",
         "QTRLY Family x6",
       ],
+      images: [
+        {
+          text: "Enjoy Seamless Live Stream",
+          src: "https://img.freepik.com/free-vector/it-s-movie-time-banner-template-pop-corn-basket-cola-cup-movie-sign-blue-curtain-background_575670-2199.jpg",
+          alt: "Live Stream Image",
+        },
+        {
+          text: "No Lag Just Wins",
+          src: "https://img.freepik.com/free-photo/front-view-man-playing-video-game_23-2149546688.jpg",
+          alt: "Gaming Image",
+        },
+        {
+          text: "Reels snaps and vibes anywhere",
+          src: "https://img.freepik.com/free-photo/hands-holding-smartphone-social-media-concept_23-2150208238.jpg",
+          alt: "Reels snaps and vibes with no lag",
+        },
+      ],
+      currentIndex: 0,
     };
   },
   methods: {
@@ -141,9 +137,21 @@ export default {
       sessionStorage.setItem("checkoutData", JSON.stringify(pkg));
       this.$router.push({ name: "checkout" });
     },
+    onHover(index) {
+      this.currentIndex = index;
+    },
+  },
+  mounted() {
+    this.interval = setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    }, 3000);
+  },
+  beforeUnmount() {
+    clearInterval(this.interval);
   },
 };
 </script>
+
 
 <style scoped>
 body {
@@ -248,11 +256,10 @@ h2 {
   max-width: 300px;
   text-align: center;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 10px;
-  animation: rotateInUpRight 1s ease-in-out;
-  opacity: 0;
-  animation-fill-mode: forwards;
-  animation-delay: calc(var(--index) * 0.1s);
+
+  animation: swivelEffect 1s ease-in-out;
+  opacity: 1;
+
 }
 
 .orange-theme .package-name,
@@ -277,6 +284,8 @@ h2 {
 .green-theme button {
   background-color: #00800059;
 }
+
+
 
 .green-theme button:hover {
   background-color: green;
@@ -331,7 +340,53 @@ button {
   transition: background-color 0.3s ease;
 }
 
-.statistics-section {
+.image-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  position: relative;
+}
+
+.image-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 300px;
+  height: 500px;
+  text-align: center;
+  background-color: #f4f4f4;
+  transition: transform 0.5s ease, filter 0.5s ease, box-shadow 0.5s ease;
+  transform: scale(0.9); /* Slightly smaller non-center images */
+}
+
+.image-card.center {
+  
+  transform: scale(1); /* Enlarge the center image */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Add shadow for center image */
+  z-index: 2; /* Ensure it's above other cards */
+}
+
+.card-text {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.2rem;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info-bar {
+
   display: flex;
   flex-wrap: wrap; /* Wrap for smaller screens */
   justify-content: center; /* Center items */
@@ -367,17 +422,19 @@ button {
   font-size: 20px;
 }
 
-/* Keyframe for animation */
-@keyframes rotateInUpRight {
+@keyframes swivelEffect {
+
   0% {
-    transform: rotate(-90deg);
-    opacity: 0;
-    transform-origin: bottom right;
+    transform: rotateY(0deg);
+    opacity: 0.5;
+  }
+  50% {
+    transform: rotateY(90deg);
+    opacity: 0.8;
   }
   100% {
-    transform: rotate(0);
+    transform: rotateY(0deg);
     opacity: 1;
-    transform-origin: bottom right;
   }
 }
 
