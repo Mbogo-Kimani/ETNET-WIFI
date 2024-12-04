@@ -154,26 +154,112 @@ export default {
 
 
 <style scoped>
+body {
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  padding: 20px;
+}
+
+.image-cards {
+  display: flex;
+  flex-wrap: wrap; /* Wrap cards on smaller screens */
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.image-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  aspect-ratio: 3 / 5; /* Keep consistent proportions */
+  margin: 0 auto; /* Centering cards */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f4f4f4;
+}
+
+.card-text {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.2rem;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info-bar {
+  display: flex;
+  flex-wrap: wrap; /* Wrap items for smaller screens */
+  justify-content: space-around;
+  align-items: center;
+  background-color: #243c75;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px auto; /* Centered */
+  max-width: 600px;
+  text-align: center;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 30px;
+  color: #FF901D;
+  font-size: 32px;
+  font-weight: bold;
+}
+
 .package-selection {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-top: -90px;
-  padding: 30px 0;
-  border-radius: 24px;
+  justify-content: center;
   gap: 20px;
+  padding: 20px 0;
 }
 
 .package-card {
   border-radius: 12px;
   background: #ffffff;
   padding: 20px;
-  margin-top: 100px;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   text-align: center;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
   animation: swivelEffect 1s ease-in-out;
   opacity: 1;
+
 }
 
 .orange-theme .package-name,
@@ -220,7 +306,7 @@ export default {
   margin-top: -2px;
 }
 
-.pay{
+.pay {
   color: #213061;
   font-size: 20px;
   font-weight: bold;
@@ -300,82 +386,44 @@ button {
 }
 
 .info-bar {
+
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: #243c75;
-  color: white;
-  padding: 15px;
-  border-radius: 8px;
-  margin:0 auto; 
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
-  margin-top: 60px;
-  
-  
-}
-
-.info-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 30px;
-}
-
-.icon {
-  width: 50px;
-  height: 50px;
-}
-
-h2{
-  text-align: center;
-  margin-top: 95px;
-  color:#FF901D;
-  font-size: 40px;
-  font-weight: bold;
-}
-
-.statistics-section {
-  display: flex; /* Flexbox for horizontal alignment */
-  justify-content: space-around; /* Space between items */
-  align-items: center; /* Center items vertically */
-  padding: 20px; /* Padding around the section */
-  gap: 30px; /* Space between items */
+  flex-wrap: wrap; /* Wrap for smaller screens */
+  justify-content: center; /* Center items */
+  gap: 30px;
+  padding: 20px;
 }
 
 .stat-item {
-  display: flex; /* Flexbox for content alignment */
-  flex-direction: column; /* Stack number and text vertically */
-  align-items: center; /* Center items horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  width: 100%;
+  max-width: 200px; /* Limit stat width */
 }
 
 .stat-number {
-  font-size: 40px; /* Large font for the number */
+  font-size: 40px;
   font-weight: bold;
-  color: #213061; /* Blue color */
+  color: #213061;
 }
 
 .stat-text {
-  display: flex; /* Flexbox for icon and text */
-  align-items: center; /* Center icon and text vertically */
-  gap: 10px; /* Space between icon and text */
-  font-size: 40px; /* Text size */
-  color: #213061; /* Blue color */
-}
-
-.icon {
-  height: 30px; /* Icon size */
-  width: auto;
-}
-
-.name{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
   color: #213061;
-  font-size: 40px;
+}
+
+.name {
+  color: #213061;
+  font-size: 20px;
 }
 
 @keyframes swivelEffect {
+
   0% {
     transform: rotateY(0deg);
     opacity: 0.5;
@@ -389,5 +437,32 @@ h2{
     opacity: 1;
   }
 }
-</style>
 
+/* Responsive Design */
+@media (max-width: 768px) {
+  .image-card {
+    aspect-ratio: auto; /* Let height adjust to content */
+  }
+
+  .package-card {
+    margin: 10px auto; /* Adjust margins for smaller screens */
+  }
+
+  .info-bar {
+    flex-direction: column; /* Stack items vertically */
+    text-align: center;
+  }
+
+  .info-item {
+    font-size: 16px; /* Smaller font for smaller screens */
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  .stat-item {
+    max-width: 150px; /* Reduce size for smaller screens */
+  }
+}
+</style>

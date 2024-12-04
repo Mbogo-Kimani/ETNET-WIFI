@@ -1,43 +1,47 @@
 <template>
   <div class="app">
     <header class="header">
-      <div class="header-bg"></div>
+     <div class="header-bg"></div> 
       <img src="@/assets/logo.png" alt="Logo" class="logo">
     </header>
 
     <router-view></router-view>
 
     <footer class="footer">
-      <div class="footer-content">
-        <!-- Left Section -->
-        <div class="contact-section">
-          <h3>Get in Touch with Us</h3>
-          <div class="social-icons">
-            <a href="#"><img src="./assets/titkok.png" alt="TikTok"></a>
-            <a href="#"><img src="./assets/x.png" alt="X"></a>
-            <a href="#"><img src="./assets/instagram.png" alt="Instagram"></a>
-            <a href="#"><img src="./assets/facebook.png" alt="Facebook"></a>
-          </div>
-          <p>Email: <a href="mailto:sales@etnet.co.ke">sales@etnet.co.ke</a></p>
-          <p>Phone: 0791012345</p>
-          <p><a href="https://www.etnet.co.ke">www.etnet.co.ke</a></p>
-        </div>
-
-        <!-- Right Section -->
-        <div class="branding-section">
-          <img src="./assets/elephant.png" alt="Elephant Logo" class="logo1">
-          <div class="branding-text">
-            <h3>Elephant</h3>
-            <p>Technologies Limited</p>
-          </div>
-        </div>
+  <div class="footer-content">
+    <!-- Contact Section -->
+    <div class="contact-section">
+      <h3>Get in Touch with Us</h3>
+      <div class="social-icons">
+        <a href="#"><img src="./assets/titkok.png" alt="TikTok"></a>
+        <a href="#"><img src="./assets/x.png" alt="X"></a>
+        <a href="#"><img src="./assets/instagram.png" alt="Instagram"></a>
+        <a href="#"><img src="./assets/facebook.png" alt="Facebook"></a>
       </div>
+      <p>Email: <a href="mailto:sales@etnet.co.ke">sales@etnet.co.ke</a></p>
+      <p>Phone: 0791012345</p>
+      <p><a href="https://www.etnet.co.ke">www.etnet.co.ke</a></p>
+    </div>
 
-      <!-- Footer Bottom -->
-      <div class="footer-bottom">
-        <p>&copy; 2024 ETNET All Rights Reserved</p>
+    <!-- Branding Section -->
+    <div class="branding-section">
+      <img src="./assets/elephant.png" alt="Elephant Logo" class="logo1">
+      <div class="branding-text">
+        <h3>Elephant</h3>
+        <p>Technologies Limited</p>
       </div>
-    </footer>
+    </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    <p>
+      &copy; 2024 ETNET All Rights Reserved 
+      <a href="/privacy-policy" class="privacy-policy">Privacy Policy</a>
+    </p>
+  </div>
+</footer>
+
 
     <!-- Cursor Elements -->
     <div class="cursor"></div>
@@ -54,11 +58,11 @@ export default {
   mounted() {
     const cursor = document.querySelector(".cursor");
     const cursorTrail = document.querySelector(".cursor-trail");
-    const background = document.querySelector(".background-effects");
+    const background = document.querySelector(".background-effects"); // Define the background variable
 
     if (!cursor || !cursorTrail || !background) return;
 
-    // Cursor movement and trail effect
+    // Cursor movement
     document.addEventListener("mousemove", (event) => {
       const { clientX, clientY } = event;
 
@@ -80,7 +84,8 @@ export default {
       wavePosition += 0.5;
       background.style.backgroundPosition = `${wavePosition}px ${wavePosition}px`;
     }, 30);
-  },
+}
+
 };
 </script>
 
@@ -91,24 +96,18 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: -50px;
-  margin-top: -80px;
-  padding: 20px;
+  height: 90px;
+  width: 100%;
 }
 
 .header-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 90px;
-  background-color: #213061;
-  z-index: 1;
+  background: #213061; /* This is likely the missing part */
 }
+
 
 .logo {
   width: 200px;
-  margin-right: 10px;
+  z-index: 2;
 }
 
 /* Footer Styles */
@@ -124,68 +123,65 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 40px;
   max-width: 1200px;
   margin: 0 auto;
   flex-wrap: wrap;
+  gap: 20px;
+}
+
+.contact-section {
+  flex: 1;
+  min-width: 250px;
+  text-align: center;
 }
 
 .contact-section h3 {
   color: #F8AA5A;
-  margin-bottom: 10px;
-  font-size: 40px;
-  margin-left: 80px;
-  margin-top: -20px;
-  width: 100%;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
 }
 
 .social-icons {
   display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-  width: 100%;
-  margin-left: 180px;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
 .social-icons img {
-  width: 55px;
-  height: 55px;
-  width: 100%;
+  width: 30px;
+  height: 30px;
 }
 
 .contact-section p {
-  margin: 10px 0;
-  margin-left: 70px;
+  margin: 5px 0;
   color: #213061;
   font-weight: bold;
-  font-size: 20px;
-  width: 100%;
+  font-size: 14px;
 }
 
 .contact-section a {
   color: #213061;
   text-decoration: none;
   font-weight: bold;
-  font-size: 20px;
 }
 
 .branding-section {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 20px;
-  width: 50%;
-  margin-top: 80px;
-  margin-right: -25%;
+  text-align: center;
+  flex: 1;
+  min-width: 250px;
 }
 
 .branding-section .logo1 {
-  height: auto;
-  width: 50%;
-  margin-right: -69%;
+  height: 100px;
+  margin-bottom: 10px;
 }
 
 .branding-text h3 {
-  font-size: 3rem;
+  font-size: 1.5rem;
   color: #213061;
   margin: 0;
 }
@@ -198,23 +194,53 @@ export default {
 }
 
 .footer-bottom {
-  margin-top: -25px;
-  font-size: 1rem;
-  font-weight: bold;
+  margin-top: 20px;
+  font-size: 0.9rem;
   color: #FF901D;
-  margin-bottom: -50px;
 }
 
-/* Cursor Effects */
-.cursor {
-  width: 15px;
-  height: 15px;
-  background-color: #FF901D;
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.1s ease-in-out;
+.footer-bottom a {
+  color: #213061;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .contact-section {
+    margin-bottom: 20px;
+  }
+
+  .contact-section h3 {
+    font-size: 1.2rem;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .branding-section {
+    margin-top: 20px;
+  }
+
+  .branding-section .logo1 {
+    height: 80px;
+  }
+
+  .branding-text h3 {
+    font-size: 1.2rem;
+  }
+
+  .footer-bottom {
+    font-size: 0.8rem;
+  }
 }
 
 .cursor-trail {
@@ -228,11 +254,19 @@ export default {
   transition: transform 0.15s ease-in-out;
 }
 
-.cursor.click {
-  transform: scale(1.5);
-}
+  .contact-section h3 {
+    font-size: 2rem;
+  }
 
-/* Background Effects */
+  .branding-section .logo1 {
+    height: 120px;
+  }
+
+  .branding-text h3 {
+    font-size: 2rem;
+  }
+
+ /* Background Effects */
 .background-effects {
   position: fixed;
   top: 0;
