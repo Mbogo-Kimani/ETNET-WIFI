@@ -114,7 +114,27 @@ export default {
     setInterval(() => {
       background.style.backgroundPosition = `${wavePosition}px ${wavePosition}px`;
     }, 30);
-}
+},
+methods: {
+    // Generate random styles for each particle
+    generateParticleStyles() {
+      const size = Math.random() * 15 + 10 + "px"; // Random size between 10px and 25px
+      const left = Math.random() * 100 + "vw"; // Random horizontal position
+      const top = Math.random() * 100 + "vh"; // Random vertical position
+      const animationDuration = Math.random() * 10 + 5 + "s"; // Random animation speed
+      const colors = ['#ffe0c1', '#FF901D', '#213061']; // Particle colors
+      const color = colors[Math.floor(Math.random() * colors.length)]; // Randomly pick a color
+
+      return {
+        width: size,
+        height: size,
+        left: left,
+        top: top,
+        animationDuration: animationDuration,
+        background: color, // Apply random color to each particle
+      };
+    },
+  },
 
 };
 </script>
@@ -312,7 +332,7 @@ export default {
   left: 0;
   width: 200%;
   height: 200%;
-  background: linear-gradient(45deg, #ff901d, #ffe0c1, #213061, #f5ae63);
+  background: linear-gradient(45deg, #213061,  #ffe0c1,  #f5ae63);
   animation: pulsatingBackground 5s ease-in-out infinite;
 }
 

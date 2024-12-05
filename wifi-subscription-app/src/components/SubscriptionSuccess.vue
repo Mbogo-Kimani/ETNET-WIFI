@@ -43,22 +43,29 @@ export default {
   align-items: center;
   flex-wrap: wrap;
   padding: 30px 20px;
+  flex-wrap: wrap;
+  padding: 30px 20px;
   border-radius: 24px;
+  margin-top: -50px;
   margin-top: -50px;
 }
 
 .success-page {
   border-radius: 30px;
   background-color: #FFFFFF80;
+  border-radius: 30px;
+  background-color: #FFFFFF80;
   text-align: center;
   padding: 30px;
-  margin-top: -100px;
+  margin-top: 50px;
+ 
   max-width: 400px;
   width: 100%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   animation-duration: 1s; /* Animation duration for rollIn and rollOut */
   animation-fill-mode: both; /* Ensures animation stays applied after finishing */
 }
+
 
 /* Icon ring for centering and design */
 .icon-ring {
@@ -70,6 +77,7 @@ export default {
 
 /* Icon styling */
 .success-icon {
+  width: 150px; /* Adjust icon size */
   width: 150px; /* Adjust icon size */
   height: auto; /* Maintain aspect ratio */
 }
@@ -135,7 +143,7 @@ button:hover {
 
 /* Animation classes */
 .animated {
-  animation-duration: 1s;
+  animation-duration: 1.5s;
   animation-fill-mode: both;
 }
 

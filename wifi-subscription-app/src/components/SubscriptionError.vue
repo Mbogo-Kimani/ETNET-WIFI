@@ -68,7 +68,7 @@ export default {
   background-color: #FFFFFF80;
   text-align: center;
   padding: 30px;
-  margin-top: -100px;
+  margin-top: 40px;
   max-width: 400px;
   width: 100%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

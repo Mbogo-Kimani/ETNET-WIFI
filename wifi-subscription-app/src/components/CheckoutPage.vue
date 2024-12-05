@@ -1,6 +1,6 @@
 <template>
   <div class="pay">
-    <div class="checkout-page">
+    <div class="checkout-page animated">
       <img src="@/assets/mpesa.png" alt="Error" class="mpesa-icon" />
       <p>
         <span class="span1">Ksh {{ price }}</span> for {{ formattedDuration }}
@@ -14,11 +14,21 @@
         v-model="phoneNumber"
         @input="validatePhoneInput"
       />
-      <p id="validation-message">{{ validationMessage }}</p>
+      <p id="validation-message" :class="{ valid: isValid, invalid: !isValid }">
+        {{ validationMessage }}
+      </p>
       <button @click="payNow">Pay Now</button>
+    </div>
+
+    <!-- Loading Popup -->
+    <div v-if="isProcessing" class="loading-popup">
+      <div class="popup-content">
+        <p>Processing Payment...</p>
+      </div>
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -28,6 +38,8 @@ export default {
       duration: 0, // Store raw duration in seconds
       price: 0,
       validationMessage: "",
+      isProcessing: false, // Track loading state
+      isValid: false, // Track input validity
     };
   },
   computed: {
@@ -48,7 +60,7 @@ export default {
     if (checkoutData) {
       const parsedData = JSON.parse(checkoutData);
       this.duration = parsedData.duration;
-      this.price = parsedData.cost; // Adjust based on the property in `pkg`
+      this.price = parsedData.cost;
     } else {
       console.error("No checkout data found. Redirecting to packages page...");
       this.$router.replace({ path: "/" });
@@ -57,25 +69,33 @@ export default {
   methods: {
     validatePhoneInput() {
       this.phoneNumber = this.phoneNumber.replace(/\D/g, "");
-      this.validationMessage =
-        this.phoneNumber.length === 10
-          ? "Valid input"
-          : "Please enter exactly 10 digits";
+      this.isValid = this.phoneNumber.length === 10;
+      this.validationMessage = this.isValid
+        ? "Valid input"
+        : "Please enter exactly 10 digits";
     },
     payNow() {
-      if (this.phoneNumber.length !== 10) {
+      if (!this.isValid) {
         this.validationMessage = "Enter a valid phone number before proceeding.";
         return;
       }
 
-      // Navigate to success page after validation
-      this.$router.push({ path: "/success" });
-      this.$router.push({ path: "/success" });
+      this.isProcessing = true; // Show loading popup
+
+      // Simulate payment process
+      setTimeout(() => {
+        this.isProcessing = false; // Hide loading popup
+
+        // Simulate success or error navigation
+        const paymentSuccessful = Math.random() > 0.5;
+        const path = paymentSuccessful ? "/success" : "/error";
+        this.$router.push({ path });
+      }, 3000); // Simulate a 3-second delay
     },
   },
 };
-
 </script>
+
 
 
 
@@ -93,17 +113,27 @@ export default {
 }
 
 .checkout-page {
-  background-color:#FFFFFF80;
+  background-color: #ffffff80;
   text-align: center;
   width: 100%;
-  max-width: 500%;
- margin: auto 0;
+  max-width: 500px;
   padding: 20px;
-  border-radius: 12px;
-  height: 300px;
-  margin: 50px;
-  margin-bottom: 40px;
-  margin-top: 100px;
+  border-radius: 30px;
+  height: 400px;
+  margin: auto;
+  margin-top: 200px;
+  animation: rotate-in 0.8s ease-out; /* Apply rotate-in animation */
+}
+
+@keyframes rotate-in {
+  from {
+    transform: rotateY(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
 }
 
 input {
@@ -118,22 +148,21 @@ input {
   margin-bottom: 23px;
   border-radius: 16px;
   height: 35px;
-  margin-top: 50px
+  margin-top: 50px;
 }
 
 .mpesa-icon {
   margin-bottom: -70px;
   width: 200px;
-
 }
 
 p {
   font-weight: 600;
   font-size: 20px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   margin-bottom: 10px;
-  color:#213061;
+  color: #213061;
   margin-top: 30px;
 }
 
@@ -147,7 +176,7 @@ button {
   padding: 15px;
   width: 100%;
   max-width: 70%;
-  margin-top:30px;
+  margin-top: 30px;
   margin-bottom: 30px;
   border-radius: 16px;
   border-style: none;
@@ -160,8 +189,30 @@ button:hover {
   cursor: pointer;
 }
 
-::placeholder {
-  color:#213061;
+.loading-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px 40px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 #validation-message {
@@ -176,9 +227,5 @@ button:hover {
 
 #validation-message.invalid {
   color: red;
-}
-
-span {
-  color: #00ff00;
 }
 </style>
