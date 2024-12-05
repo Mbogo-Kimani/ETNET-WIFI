@@ -3,6 +3,8 @@
     <header class="header">
      <div class="header-bg"></div> 
       <img src="@/assets/logo.png" alt="Logo" class="logo">
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
     </header>
 
     <router-view></router-view>

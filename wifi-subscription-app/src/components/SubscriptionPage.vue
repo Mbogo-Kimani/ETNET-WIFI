@@ -52,7 +52,11 @@
         .catch(error => {
           console.error("Error fetching subscription details:", error);
         });
-    }
+    },
+    mounted() {
+    // Ensure the page scrolls to the top when the checkout page is loaded
+    window.scrollTo(0, 0);
+  },
   };
   </script>
   

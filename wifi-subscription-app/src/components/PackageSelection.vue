@@ -2,17 +2,18 @@
   <div class="container">
     <!-- Image Cards -->
     <div class="image-cards">
-      <div
-        v-for="(image, index) in images"
-        :key="index"
-        class="image-card"
-        :class="{ center: currentIndex === index }"
-        @mouseover="onHover(index)"
-      >
-        <div class="card-text">{{ image.text }}</div>
-        <img :src="image.src" :alt="image.alt" class="card-image" />
-      </div>
-    </div>
+  <div
+    v-for="(image, index) in images"
+    :key="index"
+    class="image-card"
+    :class="{ center: currentIndex === index }"
+    @mouseover="onHover(index)"
+  >
+    <div class="card-text glow">{{ image.text }}</div>
+    <img :src="image.src" :alt="image.alt" class="card-image" />
+  </div>
+</div>
+
 
     <!-- Info Bar -->
     <div class="info-bar">
@@ -165,45 +166,7 @@ body {
   padding: 20px;
 }
 
-.image-cards {
-  display: flex;
-  flex-wrap: wrap; /* Wrap cards on smaller screens */
-  gap: 20px;
-  justify-content: center;
-  margin-bottom: 30px;
-}
 
-.image-card {
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  aspect-ratio: 3 / 5; /* Keep consistent proportions */
-  margin: 0 auto; /* Centering cards */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #f4f4f4;
-}
-
-.card-text {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 1.2rem;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-.card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 
 .info-bar {
   display: flex;
@@ -340,11 +303,14 @@ button {
   transition: background-color 0.3s ease;
 }
 
+/* Image Cards Layout */ 
 .image-cards {
   display: flex;
-  gap: 20px;
   justify-content: center;
-  position: relative;
+  align-items: center;
+  gap: 20px;
+  overflow: hidden; /* Prevent horizontal overflow */
+  position: relative; /* For small screen animations */
 }
 
 .image-card {
@@ -360,38 +326,119 @@ button {
 }
 
 .image-card.center {
-  
   transform: scale(1); /* Enlarge the center image */
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Add shadow for center image */
   z-index: 2; /* Ensure it's above other cards */
 }
 
+/* Styling for Card Text */
 .card-text {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 8%;
+  left: 10%; /* Center horizontally */
+  transform: translateX(-50%); /* Center text horizontally */
   color: #ffffff;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 5px 10px;
-  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  padding: 10px 20px;
+  border-radius: 10px;
+  opacity: 0;
+  transform: translateY(20px); /* Slide-in effect */
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
+/* Glow Effect */
+@keyframes glowingEffect {
+  0% {
+    text-shadow: 0 0 5px #ff6f61, 0 0 10px #ff6f61, 0 0 15px #ff6f61;
+  }
+  50% {
+    text-shadow: 0 0 10px #ff4500, 0 0 20px #ff4500, 0 0 30px #ff4500;
+  }
+  100% {
+    text-shadow: 0 0 5px #ff6f61, 0 0 10px #ff6f61, 0 0 15px #ff6f61;
+  }
+}
+
+/* Apply Glow Effect to Text */
+.card-text.glow {
+  animation: glowingEffect 2s infinite;
+}
+
+/* Gradient Text Effect */
+.card-text.gradient {
+  background: linear-gradient(90deg, #ff7f50, #ff4500);
+  -webkit-background-clip: text;  /* Vendor prefix for Safari */
+  background-clip: text;  /* Standard property */
+  -webkit-text-fill-color: transparent; /* Only needed for WebKit-based browsers */
+}
+
+/* Hover Effect to Show Text (Only on Large Screens) */
+.image-card:hover .card-text {
+  opacity: 1;
+  transform: translateY(0); /* Text slides into position */
+}
+
+/* Card Image Styling */
 .card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+/* New Styles for Small Screens */
+@media (max-width: 768px) {
+  .image-cards {
+    display: flex;
+    flex-direction: column; /* Stack cards vertically */
+    align-items: center; /* Center align cards */
+    height: 500px; /* Set a fixed height for the focus area */
+    overflow: hidden; /* Hide cards outside focus */
+  }
+
+  .image-card {
+    position: absolute; /* Stack cards */
+    width: 100%; /* Take full width */
+    height: 100%; /* Take full height */
+    opacity: 0; /* Hide non-focused cards */
+    transform: scale(0.8); /* Reduce size of non-focused cards */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .image-card.center {
+    opacity: 1; /* Show focused card */
+    transform: scale(1); /* Full size for the focused card */
+    z-index: 2;
+  }
+
+  /* Display text automatically on small screens */
+  .card-text {
+    opacity: 1; /* Show the text */
+    transform: translateY(0); /* Text slides into position */
+  }
+}
+
+
+
 .info-bar {
 
   display: flex;
   flex-wrap: wrap; /* Wrap for smaller screens */
   justify-content: center; /* Center items */
-  gap: 30px;
+  gap: 20px;
   padding: 20px;
+}
+
+.statistics-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 80px;
+  padding: 20px 0;
 }
 
 .stat-item {
@@ -399,28 +446,56 @@ button {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 100%;
-  max-width: 200px; /* Limit stat width */
+  width: 150px; /* Adjust width for consistency */
+  padding: 15px;
+  border: 1px solid #ff7f50; /* Outline */
+  border-radius: 8px;
+  
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Individual box shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover animation */
+}
+
+.stat-item:hover {
+  transform: translateY(-5px); /* Lift on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
 }
 
 .stat-number {
   font-size: 40px;
   font-weight: bold;
   color: #213061;
+  margin-bottom: 5px;
 }
+
+
 
 .stat-text {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 20px;
+  gap: 5px;
+  font-size: 16px;
+  font-weight: bold;
   color: #213061;
 }
 
 .name {
   color: #213061;
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  .statistics-section {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+  }
+
+  .stat-item {
+    width: 100%; /* Full width on smaller screens */
+    max-width: 300px; /* Limit maximum width */
+  }
+}
+
 
 @keyframes swivelEffect {
 
@@ -434,7 +509,7 @@ button {
   }
   100% {
     transform: rotateY(0deg);
-    opacity: 1;
+    opacity: 1;                                                                                   
   }
 }
 

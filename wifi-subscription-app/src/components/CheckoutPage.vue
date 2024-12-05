@@ -32,6 +32,7 @@
 
 <script>
 export default {
+  
   data() {
     return {
       phoneNumber: "",
@@ -43,6 +44,7 @@ export default {
     };
   },
   computed: {
+    
     formattedDuration() {
       const days = Math.floor(this.duration / 86400);
       const hours = Math.floor((this.duration % 86400) / 3600);
@@ -54,6 +56,7 @@ export default {
       if (minutes > 0) return `${minutes} Minute${minutes > 1 ? "s" : ""}`;
       return `${this.duration} Seconds`;
     },
+    
   },
   created() {
     const checkoutData = sessionStorage.getItem("checkoutData");
@@ -65,6 +68,10 @@ export default {
       console.error("No checkout data found. Redirecting to packages page...");
       this.$router.replace({ path: "/" });
     }
+  },
+  mounted() {
+    // Ensure the page scrolls to the top when the checkout page is loaded
+    window.scrollTo(0, 0);
   },
   methods: {
     validatePhoneInput() {

@@ -19,6 +19,7 @@ export default {
     };
   },
   mounted() {
+    window.scrollTo(0, 0);
     // Wait 10 seconds before transitioning to rollOut animation
     setTimeout(() => {
       this.animationClass = "animated rollOut"; // Change animation to rollOut
