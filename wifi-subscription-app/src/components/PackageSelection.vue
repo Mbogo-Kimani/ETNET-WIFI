@@ -164,6 +164,7 @@ body {
 
 .container {
   padding: 20px;
+ 
 }
 
 
@@ -180,6 +181,7 @@ body {
   margin: 20px auto; /* Centered */
   max-width: 600px;
   text-align: center;
+  
 }
 
 .info-item {
