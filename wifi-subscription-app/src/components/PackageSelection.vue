@@ -15,17 +15,18 @@
 </div>
 
 
-    <!-- Info Bar -->
-    <div class="info-bar">
-      <div class="info-item">
-        <img src="@/assets/customer.png" alt="Contact Icon" class="icon" />
-        <span @click="$router.push('/contact')">Contact customer care</span>
-      </div>
-      <div class="info-item">
-        <img src="@/assets/wifi-green.png" alt="Subscription Icon" class="icon" />
-        <span @click="$router.push('/subscription')">Subscriptions</span>
-      </div>
-    </div>
+   <!-- Info Bar -->
+<div class="info-bar" tabindex="0">
+  <div class="info-item">
+    <img src="@/assets/customer.png" alt="Contact Icon" class="icon pulse" />
+    <span class="hover-text" @click="$router.push('/contact')">Contact Customer Care</span>
+  </div>
+  <div class="info-item">
+    <img src="@/assets/wifi-green.png" alt="Subscription Icon" class="icon pulse" />
+    <span class="hover-text" @click="$router.push('/subscription')">Subscriptions</span>
+  </div>
+</div>
+
 
     <!-- Hotspot Plans Heading -->
     <h2>HOTSPOT PLANS</h2>
@@ -166,20 +167,28 @@ body {
   padding: 20px;
 }
 
-
-
+/* Info Bar Styles */
 .info-bar {
   display: flex;
   flex-wrap: wrap; /* Wrap items for smaller screens */
   justify-content: space-around;
   align-items: center;
-  background-color: #243c75;
+  background-color: 45deg, #213061,  #ffe0c1,  #f5ae63 ;;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  
   color: white;
   padding: 15px;
   border-radius: 8px;
-  margin: 20px auto; /* Centered */
+  margin: 50px auto; /* Centered */
   max-width: 600px;
   text-align: center;
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+.info-bar:hover {
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02); /* Slightly scale up on focus/hover */
+  background-color:45deg, #213061,  #ffe0c1,  #f5ae63 ;
 }
 
 .info-item {
@@ -188,12 +197,109 @@ body {
   gap: 10px;
   font-size: 20px;
   text-align: center;
+  cursor: pointer; /* Pointer cursor for clickable text */
 }
 
 .icon {
   width: 50px;
   height: 50px;
+  animation: pulse-no-glow 1.5s infinite; /* Default pulse animation without glow */
+  transition: filter 0.3s ease; /* Smooth glow effect on hover */
 }
+
+/* Hover Text Styles */
+.hover-text {
+  cursor: pointer;
+  transition: color 0.3s ease; /* Smooth text color change */
+}
+
+.hover-text:hover {
+  color: #FF901D; /* Subtle green on hover */
+}
+
+/* Pulse Animation Without Glow */
+@keyframes pulse-no-glow {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Pulse Animation With Glow */
+@keyframes pulse-with-glow {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 4px #3cb371);
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px #3cb371);
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 4px #3cb371);
+  }
+}
+
+/* When Info Bar is Hovered */
+.info-bar:hover .icon {
+  animation: pulse-with-glow 1.5s infinite; /* Pulse with glow animation */
+}
+
+
+/* Responsive Design for Info Bar */
+@media (max-width: 768px) {
+  .info-bar {
+    flex-direction: column; /* Stack items vertically */
+    gap: 15px; /* Adjust spacing between items */
+  }
+
+  .info-item {
+    font-size: 16px; /* Adjust font size for smaller screens */
+    justify-content: center; /* Center align the text and icon */
+    padding: 15px;
+  }
+
+  .icon {
+    width: 35px; /* Reduce icon size */
+    height: 35px;
+  }
+
+  .hover-text {
+    font-size: 14px; /* Reduce text size */
+  }
+}
+
+@media (max-width: 480px) {
+  .info-bar {
+    padding: 15px; /* Adjust padding for smaller screens */
+    gap: 10px; /* Reduce spacing between items */
+  }
+
+  .info-item {
+    font-size: 14px; /* Smaller text */
+    gap: 8px; /* Reduce gap between icon and text */
+    padding: 10px; /* Adjust padding */
+  }
+
+  .icon {
+    width: 30px; /* Smaller icon size */
+    height: 30px;
+  }
+
+  .hover-text {
+    font-size: 12px; /* Smaller hover text */
+  }
+}
+
+
+
+
 
 h2 {
   text-align: center;
