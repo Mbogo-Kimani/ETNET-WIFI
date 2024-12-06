@@ -183,6 +183,7 @@ body {
   margin: 50px auto; /* Centered */
   max-width: 600px;
   text-align: center;
+}
 
 
 .info-bar:hover {
