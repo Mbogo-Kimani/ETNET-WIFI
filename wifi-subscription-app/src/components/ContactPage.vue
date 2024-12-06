@@ -1,10 +1,11 @@
 <template>
   <div class="contact-page">
     <header class="contact-header">
-      <h1>Contact Us</h1>
+      <!-- Optional header content can be added here -->
     </header>
    
     <div class="contact-container">
+      <!-- Form Section -->
       <div class="form-card">
         <form @submit.prevent="submitForm" class="contact-form">
           <div class="form-group">
@@ -55,6 +56,8 @@
           <button type="submit" class="submit-btn">Send Message</button>
         </form>
       </div>
+
+      <!-- Map Section -->
       <div class="map-section">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d63821.06843002517!2d36.75567464485618!3d-1.2838227182003692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e2!4m0!4m5!1s0x182f1136b65425b9%3A0xfb76365e998d2eb1!2sGOLDPARK%20HOMES%2C%20Wood-Avenue%20off%20Lenana%20road!3m2!1d-1.2899279!2d36.7857185!5e0!3m2!1sen!2ske!4v1733397281996!5m2!1sen!2ske"
@@ -84,6 +87,10 @@ export default {
       },
     };
   },
+  mounted() {
+    // Ensure the page scrolls to the top when the checkout page is loaded
+    window.scrollTo(0, 0);
+  },
   methods: {
     submitForm() {
       // Simulate sending data to backend
@@ -105,28 +112,26 @@ export default {
 /* Base Styles */
 .contact-page {
   padding: 20px;
-
-}
-
-.contact-header h1 {
-  text-align: center;
-  color: #243c75;
-  margin-bottom: 20px;
-  margin-top:-40px;
 }
 
 .contact-container {
+  width: 100%;
+  max-width: 900px;
   display: flex;
-  justify-content: space-between; /* Align form and map horizontally */
-  gap: 20px;
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  margin-left: auto;
+  margin-right: auto;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
+/* Map Section */
 .map-section {
   flex: 1;
-  max-width: 500px; /* Increased width */
-  height: 697px;
+  max-width: 500px; 
+  height: 490px;
   margin: 0 auto;
+  margin-bottom: 8px;
 }
 
 .map-section iframe {
@@ -137,38 +142,56 @@ export default {
   border: 0;
 }
 
+/* Form Section */
 .form-card {
-  flex: 1;
-  max-width: 90%; /* Nearly full width */
+  width: 50%;
+  height: 500px;
   background: #ffffff80;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  padding: 40px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 10px;
   box-sizing: border-box;
 }
 
 .contact-form {
   width: 100%;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   box-sizing: border-box;
+  margin-top: 19px;
+  height: 100%;
+  max-height: 1000px;
 }
 
-.form-group input,
-.form-group textarea {
-  width: 100%; /* Ensure inputs fill the container */
-  padding: 15px;
-  border: 1px solid #e0e0e0;
+/* Form Inputs */
+.form-group input{
+  width: 100%;
+  max-width: 500px;
+  height: 10px;
+  padding: 18px; /* Increased padding */
+  font-size: 16px; /* Larger font size */
+  border: 2px solid #ffffff;
   border-radius: 8px;
-  font-size: 16px;
-  box-sizing: border-box; /* Prevent overflow issues */
+  background-color: transparent;
 }
+
+.form-group textarea {
+  width: 100%;
+  max-width: 500px;
+  height: 30px;
+  padding: 18px; /* Increased padding */
+  font-size: 16px; /* Larger font size */
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  background-color: transparent;
+}
+
 
 .form-group input:focus,
 .form-group textarea:focus {
@@ -176,15 +199,24 @@ export default {
   outline: none;
 }
 
+input::placeholder {
+  font-size: 14px; /* Adjusted placeholder font size */
+  color: #252525;
+}
+
+/* Submit Button */
 .submit-btn {
   background-color: #ffc992;
   color: #243c75;
   padding: 12px;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 16px; /* Larger button text */
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: 50%;
+  margin-top: 60px;
 }
 
 .submit-btn:hover {
@@ -197,17 +229,43 @@ export default {
   .contact-container {
     flex-direction: column;
     align-items: center;
+    padding: 10px;
   }
 
   .map-section {
-    max-width: 600px;
+    max-width: 400px;
     height: 400px;
-    margin: 0 auto;
+    margin: 20px 0;
   }
 
   .form-card {
-    max-width: 95%; /* Increased width on tablets */
+    width: 100%;
     padding: 30px;
+    max-width: 800px;
+    margin: 20px auto;
+  }
+
+  .contact-form {
+    width: 100%;
+    padding: 15px;
+    gap: 10px;
+   
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 16px; /* Larger font size for inputs */
+    padding: 18px; /* Increased padding */
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .submit-btn {
+    font-size: 18px;
+    padding: 15px;
+    width: 100%;
+    max-width: 60%;
+    
   }
 }
 
@@ -223,24 +281,34 @@ export default {
   }
 
   .form-card {
-    max-width: 100%; /* Form spans the full width */
-    padding: 25px;
-    margin: 0 10px;
+    width: 100%;
+    max-width:90%;
+    padding: 20px;
+    margin: 0 auto;
   }
 
-  .contact-header h1 {
-    font-size: 1.8rem;
+  .contact-form {
+    width: 100%;
+    padding: 20px;
+    gap: 20px;
+    margin-bottom: -90px;
+    align-items: center;
   }
 
   .form-group input,
   .form-group textarea {
-    padding: 12px;
-    font-size: 14px;
+    font-size: 16px; /* Larger font size for inputs */
+    padding: 10px; /* Increased padding */
+    width: 100%;
+    max-width: 250px;
+
   }
 
+
   .submit-btn {
-    font-size: 14px;
-    padding: 12px;
+    font-size: 18px;
+    padding: 14px;
+    margin-top: 40px;
   }
 }
 
@@ -258,19 +326,24 @@ export default {
   .form-group input,
   .form-group textarea {
     font-size: 14px;
-    padding: 10px;
+    padding: 12px;
   }
 
   .submit-btn {
-    font-size: 14px;
+    font-size: 16px;
     padding: 10px;
+  }
+
+  .contact-form {
+    padding: 15px;
+    width: 100%;
   }
 }
 
 /* Large Screens (Desktops) */
 @media (min-width: 1200px) {
   .form-card {
-    max-width: 800px; /* Maintain centered layout for large screens */
+    max-width: 800px;
     padding: 50px;
   }
 
@@ -290,12 +363,3 @@ export default {
   }
 }
 </style>
-
-
-
-
-
-
-
-
-

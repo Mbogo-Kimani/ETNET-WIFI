@@ -165,6 +165,7 @@ body {
 
 .container {
   padding: 20px;
+ 
 }
 
 /* Info Bar Styles */
@@ -182,13 +183,13 @@ body {
   margin: 50px auto; /* Centered */
   max-width: 600px;
   text-align: center;
-  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
-}
+
 
 .info-bar:hover {
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
   transform: scale(1.02); /* Slightly scale up on focus/hover */
   background-color:45deg, #213061,  #ffe0c1,  #f5ae63 ;
+
 }
 
 .info-item {
