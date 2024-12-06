@@ -184,6 +184,9 @@ body {
   max-width: 600px;
   text-align: center;
 
+}
+
+
 
 .info-bar:hover {
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
