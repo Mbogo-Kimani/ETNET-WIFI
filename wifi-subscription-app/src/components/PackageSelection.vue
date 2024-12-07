@@ -23,7 +23,7 @@
   </div>
   <div class="info-item">
     <img src="@/assets/wifi-green.png" alt="Subscription Icon" class="icon pulse" />
-    <span class="hover-text" @click="$router.push('/subscription')">Subscriptions</span>
+    <span class="hover-text" @click="$router.push('/subscriptions')">Subscriptions</span>
   </div>
 </div>
 
