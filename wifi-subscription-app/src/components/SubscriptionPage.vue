@@ -1,57 +1,87 @@
 <template>
-    <div class="subscription-page" v-if="subscription">
-      <header class="header">
-        <img src="@/assets/logo.png" alt="ET NET Logo" class="logo" />
-      </header>
-      <main class="content">
-        <div class="status">
-          <h2>You’re {{ subscription.status }}</h2>
-        </div>
-        <div class="subscriptions">
-          <h3>Subscriptions</h3>
-          <div class="plan-details">
-            <p><strong>{{ subscription.subscriptions.plan }}</strong></p>
-            <p>
-              <span class="expiry">Exp: {{ subscription.subscriptions.expiry }}</span>
+    <div class="subscription-container">
+      <div class="subscription-page">
+        <!-- Page Title -->
+        <h1 class="">Your Active Subscriptions</h1>
+  
+        <!-- Subscription Plan List -->
+        <div v-if="subscriptions.length >0" class="subs">
+          <div v-for="(subscription, index) in subscriptions" :key="index">
+            <!-- Subscription Name -->
+            <h2 class="name">{{ subscription.name }}<input type="radio" v-model="selectedPlan" value="basic" required/></h2>
+  
+            <!-- Subscription Expiry -->
+            <p class="time">
+              <strong>Expires on:</strong> {{ formatExpiryDate(subscription.expiryDate) }}
             </p>
-          </div>
-          <div class="devices">
-            <p v-for="device in subscription.subscriptions.devices" :key="device">{{ device }}</p>
+  
+            <!-- Connected Devices -->
+            <div class="devices">
+              <h3 class="conn">Connected Devices</h3>
+              <ul class="list-disc ml-6">
+                <li v-for="(device, deviceIndex) in subscription.connectedDevices" :key="deviceIndex">
+                  {{ device.name }} ({{ device.type }})
+                </li>
+              </ul>
+            </div>
+  
+            <!-- Renew Button -->
+            <button
+              @click="renewSubscription(subscription)"
+              class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300"
+            >
+              Add device
+            </button>
           </div>
         </div>
-        <div class="add-device">
-          <p>
-            Add device to an existing plan
-            <span class="add-icon">+</span>
-          </p>
+  
+        <!-- No Subscriptions Available -->
+        <div v-else>
+          <p class="text-xl text-center text-gray-600">You do not have any active subscriptions.</p>
         </div>
-        <button class="buy-bundle-btn">Buy another bundle</button>
-      </main>
-    </div>
-    <div v-else>
-      <p>Loading subscription details...</p>
+      </div>
     </div>
   </template>
   
   <script>
-  import axios from 'axios';
-  
   export default {
     name: "SubscriptionPage",
     data() {
       return {
-        subscription: null,
+        // Demo data for active subscriptions
+        subscriptions: [
+          {
+            name: "Kumi Net",
+            expiryDate: "2024-12-31T23:59:59",
+            connectedDevices: [
+              { name: "iPhone", type: "Mobile" },
+              { name: "MacBook Pro", type: "Laptop" },
+            ],
+          },
+          {
+            name: "Family x4",
+            expiryDate: "2025-01-15T12:00:00",
+            connectedDevices: [
+              { name: "Samsung TV", type: "Smart TV" },
+              { name: "iPad", type: "Tablet" },
+            ],
+          },
+        ],
       };
     },
-    created() {
-      // Fetch subscription details from the backend
-      axios.get('http://localhost:3000/api/subscription_details')
-        .then(response => {
-          this.subscription = response.data;
-        })
-        .catch(error => {
-          console.error("Error fetching subscription details:", error);
-        });
+    methods: {
+      // Format expiry date to show it in a more readable way
+      formatExpiryDate(date) {
+        const options = { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" };
+        const expiryDate = new Date(date);
+        return expiryDate.toLocaleString("en-US", options);
+      },
+  
+      // Method to handle subscription renewal
+      renewSubscription(subscription) {
+        // Logic to handle renewal, e.g., API call
+        alert(`Renewing ${subscription.name}...`);
+      },
     },
     mounted() {
     // Ensure the page scrolls to the top when the checkout page is loaded
@@ -61,104 +91,56 @@
   </script>
   
   <style scoped>
-  .subscription-page {
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 20px;
-    background-color: #f4f4f9;
-    height: 100vh;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .logo {
-    max-width: 120px;
-  }
-  
-  .content {
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .status h2 {
-    color: #243c75;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .subscriptions {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
-  
-  .subscriptions h3 {
+ .subscription-container{
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: -50px;
+ }
+
+.subs{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-left: 50px;
+}
+
+.subscription-page h1{
     color: #213061;
-    margin-bottom: 10px;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .plan-details {
-    margin-bottom: 15px;
-  }
-  
-  .plan-details p {
-    margin: 5px 0;
-  }
-  
-  .expiry {
-    color: #4caf50;
-    font-weight: bold;
-  }
-  
-  .devices p {
-    margin: 5px 0;
-  }
-  
-  .add-device {
-    margin-bottom: 20px;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .add-icon {
-    color: #243c75;
-    font-weight: bold;
-    margin-left: 5px;
-    cursor: pointer;
-  }
-  
-  .buy-bundle-btn {
-    background-color: #ffc992;
+}
+.name{
+    color: #000;
+}
+
+.time, .devices{
+    font-size: 20px;
     color: #213061;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-  }
-  
-  .buy-bundle-btn:hover {
-    background-color: #eb7e03;
-    color: #ffffff;
-  }
+}
+
+.conn{
+    color: black;
+}
+
+button {
+  background: #ffc992;
+  color: #eb7e03;
+  padding: 15px;
+  width: 100%;
+  max-width: 50%;
+  margin-top: 20px;
+  border-radius: 16px;
+  border: none;
+  transition: background-color 0.3s ease;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #eb7e03;
+  color: #fff;
+  cursor: pointer;
+}
+
   </style>
+  

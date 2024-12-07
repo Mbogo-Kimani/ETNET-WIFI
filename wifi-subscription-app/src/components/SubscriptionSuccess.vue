@@ -6,7 +6,7 @@
       </div>
       <p class="success">Success</p>
       <p class="mess">Your subscription was successful</p>
-      <button @click="goToSubscriptionPage">OK</button>
+      <button @click="goTosubscriptions">OK</button>
     </div>
   </div>
 </template>
@@ -24,13 +24,13 @@ export default {
     setTimeout(() => {
       this.animationClass = "animated rollOut"; // Change animation to rollOut
       setTimeout(() => {
-        this.$router.push("/subscriptionpage"); // Redirect after rollOut completes
+        this.$router.push("/subscriptions"); // Redirect after rollOut completes
       }, 1000); // Duration of the rollOut animation
     }, 5000); // Delay before rollOut starts (10 seconds)
   },
   methods: {
     goToSubscriptionPage() {
-      this.$router.push("/subscriptionpage"); // Manual navigation
+      this.$router.push("/subscriptions"); // Manual navigation
     },
   },
 };
