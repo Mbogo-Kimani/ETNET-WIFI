@@ -186,6 +186,9 @@ body {
 }
 
 
+
+
+
 .info-bar:hover {
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
   transform: scale(1.02); /* Slightly scale up on focus/hover */

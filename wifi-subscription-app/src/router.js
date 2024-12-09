@@ -26,15 +26,17 @@ const routes = [
     name: 'subscriptions', // Named route for easier navigation
     component: SubscriptionPage,
   },
+  // Add Device Route
+  {
+    path: '/add-device', 
+    name: 'AddDevice',
+    component: () => import('@/components/AddDevice.vue'), // Dynamically import AddDevice component
+  },
 ];
 
-// Create the router instance and specify the mode
 const router = createRouter({
   history: createWebHistory(), // Use createWebHistory for history mode
   routes,
 });
 
 export default router;
-
-
-
