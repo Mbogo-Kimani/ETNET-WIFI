@@ -70,12 +70,24 @@
         ></iframe>
       </div>
     </div>
+    <!-- Home Button -->
+      <div class="home-btn">
+        <HomeButton />
+      </div>
+    
   </div>
+  
 </template>
 
 <script>
+import HomeButton from "@/components/HomeButton.vue";
+
+
 export default {
   name: "ContactPage",
+  components: {
+    HomeButton,
+  },
   data() {
     return {
       formData: {
@@ -361,5 +373,11 @@ input::placeholder {
     font-size: 18px;
     padding: 14px;
   }
+}
+
+.home-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 </style>

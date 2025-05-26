@@ -65,7 +65,7 @@
 
     <!-- WhatsApp CTA Button -->
     <a
-      href="https://wa.me/254791012345"
+      href="https://wa.me/254748449048"
       target="_blank"
       class="whatsapp-cta"
       aria-label="Contact us on WhatsApp"
@@ -169,6 +169,7 @@ methods: {
   text-align: center;
   padding: 40px 20px;
   border-top: 1px solid #ccc;
+  margin-top: 30px;
 }
 
 .footer-content {

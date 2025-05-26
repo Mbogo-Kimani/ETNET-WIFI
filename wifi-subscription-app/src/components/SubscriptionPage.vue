@@ -52,19 +52,26 @@
           You do not have any active subscriptions.
         </p>
       </div>
+
+      <!-- Home Button -->
+      <div class="home-btn">
+        <HomeButton />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import HomeButton from "@/components/HomeButton.vue";
+
 export default {
   name: "SubscriptionPage",
+  components: {
+    HomeButton,
+  },
   data() {
     return {
-      // Selected plan for radio input
       selectedPlan: "",
-
-      // Demo data for active subscriptions
       subscriptions: [
         {
           name: "Kumi Net",
@@ -86,7 +93,6 @@ export default {
     };
   },
   methods: {
-    // Format expiry date to show it in a more readable way
     formatExpiryDate(date) {
       const options = {
         year: "numeric",
@@ -95,22 +101,19 @@ export default {
         hour: "2-digit",
         minute: "2-digit",
       };
-      const expiryDate = new Date(date);
-      return expiryDate.toLocaleString("en-US", options);
+      return new Date(date).toLocaleString("en-US", options);
     },
-
-    // Navigate to AddDevicePage
     navigateToAddDevice(subscription) {
       console.log("Navigating to AddDevicePage for:", subscription.name);
-      this.$router.push({ name: "AddDevice" }); // Route to AddDevicePage
+      this.$router.push({ name: "AddDevice" });
     },
   },
   mounted() {
-    // Ensure the page scrolls to the top when the page is loaded
     window.scrollTo(0, 0);
   },
 };
 </script>
+
 
 <style scoped>
 .subscription-container {
@@ -167,6 +170,12 @@ button:hover {
   background-color: #eb7e03;
   color: #fff;
   cursor: pointer;
+}
+
+.home-btn{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 </style>
 

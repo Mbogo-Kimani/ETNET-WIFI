@@ -18,6 +18,11 @@
         {{ validationMessage }}
       </p>
       <button @click="payNow">Pay Now</button>
+
+      <!-- ✅ Return Button -->
+      <div class="return-btn-container">
+        <ReturnButton />
+      </div>
     </div>
 
     <!-- Loading Popup -->
@@ -29,22 +34,24 @@
   </div>
 </template>
 
-
 <script>
+import ReturnButton from "@/components/ReturnButton.vue";
+
 export default {
-  
+  components: {
+    ReturnButton,
+  },
   data() {
     return {
       phoneNumber: "",
-      duration: 0, // Store raw duration in seconds
+      duration: 0,
       price: 0,
       validationMessage: "",
-      isProcessing: false, // Track loading state
-      isValid: false, // Track input validity
+      isProcessing: false,
+      isValid: false,
     };
   },
   computed: {
-    
     formattedDuration() {
       const days = Math.floor(this.duration / 86400);
       const hours = Math.floor((this.duration % 86400) / 3600);
@@ -56,7 +63,6 @@ export default {
       if (minutes > 0) return `${minutes} Minute${minutes > 1 ? "s" : ""}`;
       return `${this.duration} Seconds`;
     },
-    
   },
   created() {
     const checkoutData = sessionStorage.getItem("checkoutData");
@@ -70,7 +76,6 @@ export default {
     }
   },
   mounted() {
-    // Ensure the page scrolls to the top when the checkout page is loaded
     window.scrollTo(0, 0);
   },
   methods: {
@@ -87,17 +92,14 @@ export default {
         return;
       }
 
-      this.isProcessing = true; // Show loading popup
+      this.isProcessing = true;
 
-      // Simulate payment process
       setTimeout(() => {
-        this.isProcessing = false; // Hide loading popup
-
-        // Simulate success or error navigation
+        this.isProcessing = false;
         const paymentSuccessful = Math.random() > 0.5;
         const path = paymentSuccessful ? "/success" : "/error";
         this.$router.push({ path });
-      }, 3000); // Simulate a 3-second delay
+      }, 3000);
     },
   },
 };
@@ -234,5 +236,12 @@ button:hover {
 
 #validation-message.invalid {
   color: red;
+}
+
+.return-btn-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  
 }
 </style>

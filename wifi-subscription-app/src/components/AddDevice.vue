@@ -58,12 +58,26 @@
   
       <!-- Add Device Button -->
       <button class="add-btn" @click="handleAction('add')">Add Device</button>
+
+      <!-- Buttons Section -->
+<div class="button-group">
+  <ReturnButton />
+  <HomeButton />
+</div>
+
     </div>
   </template>
   
   <script>
+  import ReturnButton from "@/components/ReturnButton.vue";
+import HomeButton from "@/components/HomeButton.vue";
+
   export default {
     name: "AddDevicePage",
+    components: {
+    ReturnButton,
+    HomeButton,
+  },
     data() {
       return {
         selectedPackage: "", // Holds the selected package
@@ -289,5 +303,13 @@
     background-color: #eb7e03;
     color: #fff;
   }
+
+  .button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
   </style>
   
